@@ -1,6 +1,4 @@
-import numpy as np
-import logging
-import sys
+import numpy as np, logging, sys
 file = input()
 try:
     f = open(file, 'r')
