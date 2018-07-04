@@ -1,0 +1,19 @@
+import numpy as np
+import logging
+
+file = input()
+try:
+    f = open(file, 'r')
+except IOError:
+    print ("No file")
+data = [[]]
+a = []
+data = np.loadtxt(f)
+c = len(data[0])-1
+d = len(data[0])
+a = [a[c] for a in data]
+#result = np.linalg.solve(data[0], data[1])
+data = np.hsplit(data, (c,d))
+result = np.linalg.solve(data[0], a)
+#FreeTerms.append(tmp.pop())
+print(result)
