@@ -1,7 +1,6 @@
 import sys, numpy as np, logging
 import db
 logging.basicConfig(filename="log.log", level=logging.INFO)
-curTime = datetime.datetime.now().timestamp()
 try:
     f = open("data.txt", 'r')
 except IOError:
