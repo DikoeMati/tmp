@@ -1,4 +1,4 @@
-import sys, numpy as np, logging, datetime
+import sys, numpy as np, logging, datetime,mysql.connector
 import db
 logging.basicConfig(filename="log.log", level=logging.INFO)
 CTime = datetime.datetime.now().timestamp()
