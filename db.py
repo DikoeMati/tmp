@@ -3,23 +3,23 @@ import mysql.connector
 
 class _DataBase:
     def __connect(self):
-#создание подключения к бд
-        self.__db = mysql.connector.connect(host='localhost', database='basa',
-                                           user='root', password='')
+        # создание подключения к бд
+        self.__db = mysql.connector.connect(host='localhost', database='base',
+                                            user='root', password='')
         if self.__db.is_connected():
             self.__cursor = self.__db.cursor()
 
     def __init__(self):
         self.__connect()
-#создание мьютекса
+        # создание мьютекса
         self.__mutex = Lock()
 
-#свойство, которое возвращает набор хранимок
+    # свойство, которое возвращает набор хранимок
     @property
     def Functions(self):
         return self.__functions
 
-#### этого небыло на паре
+    #### этого небыло на паре
     def decorate(self):
         def getFuncDecorator(storedFunction):
             def callProcedure(*args):
@@ -47,26 +47,28 @@ class _DataBase:
 
         return getFuncDecorator
 
-#функция, котороя принимает название хранимой процедуры и аргументы, которые она принимает
+    # функция, котороя принимает название хранимой процедуры и аргументы, которые она принимает
     def callFunction(self, nameFunction: str, *args):
-#блокировка мьютекса
+        # блокировка мьютекса
         self.__mutex.acquire()
         result = None
         try:
-#проверка подключения, если не подключены, то востанавливаем соединение
+            # проверка подключения, если не подключены, то востанавливаем соединение
             if not (self.__db.is_connected()):
                 self.__connect()
-#вызов хранимой процедуры
+            # вызов хранимой процедуры
             self.__cursor.callproc(nameFunction, args)
             result = []
-#получение результата вызова хранимой процедуры
+            # получение результата вызова хранимой процедуры
             for item in self.__cursor.stored_results():
                 for item2 in item.fetchall():
                     result.append(item2)
-#коммит необходим, если мы добовляем что-то в бд, чтобы сохранить изменения
+            # коммит необходим, если мы добовляем что-то в бд, чтобы сохранить изменения
             self.__db.commit()
         finally:
-#разблокирование мьютекса
+            # разблокирование мьютекса
             self.__mutex.release()
         return result
+
+
 DataBase = _DataBase()
