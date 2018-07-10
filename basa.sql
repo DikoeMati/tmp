@@ -28,8 +28,8 @@ select id into @baseId from self WHERE desition = myResult;
 INSERT INTO logs_db(id, time, result) VALUES(@baseId, myTime, myResult);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `setUr` (IN `InputUravn` VARCHAR(255), IN `InputRes` VARCHAR(255))  NO SQL
-INSERT INTO self(equation, desition) VALUES(InputUravn, InputRes)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `setUr` (IN `InputUr` VARCHAR(255), IN `InputRes` VARCHAR(255))  NO SQL
+INSERT INTO self(equation, desition) VALUES(InputUr, InputRes)$$
 
 DELIMITER ;
 
