@@ -1,6 +1,7 @@
 import sys, numpy as np, logging
 import db
 logging.basicConfig(filename="log.log", level=logging.INFO)
+CTime = datetime.datetime.now().timestamp()
 try:
     f = open("data.txt", 'r')
 except IOError:
@@ -17,7 +18,7 @@ except ValueError:
 try:
     db.DataBase.callFunction('setUr', str(data), str(np.linalg.solve(result)))
 except mysql.connector.IntegrityError:
-    db.DataBase.callFunction('setLogs', str(np.linalg.solve(result)), str(curTime))
+    db.DataBase.callFunction('setLogs', str(np.linalg.solve(result)), str(CTime))
     logging.info("\nleveln: INFO message: equation: %s result: %s" % (data, result))
 f.close()
 
